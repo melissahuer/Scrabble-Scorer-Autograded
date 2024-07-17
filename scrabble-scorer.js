@@ -27,13 +27,17 @@ function oldScrabbleScorer(word) {
 	  }
 	}
 	return letterPoints;
+   
  }
 
 // your job is to finish writing these functions and variables that we've named //
 // don't change the names or your program won't work as expected. //
 
 function initialPrompt() {
-   console.log("Let's play some scrabble! Enter a word:");
+   console.log("Lets play some Scrabble!");
+   console.log("                        ");
+   word = input.question("Enter a word to score: ");
+   console.log(oldScrabbleScorer(word));
 };
 
 let newPointStructure;
