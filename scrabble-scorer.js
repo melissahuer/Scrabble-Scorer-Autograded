@@ -15,24 +15,14 @@ const oldPointStructure = {
 function transform(oldPointStructure) {
    let newStructure = {};
 
-   for (let key in oldPointStructure){
+   for (let key in oldPointStructure) {
       let numberKey = Number(key);
-      for(let i = 0; i< oldPointStructure[key].length; i++){
+      for (let i = 0; i < oldPointStructure[key].length; i++) {
          let item = oldPointStructure[key][i].toLowerCase();
          newStructure[item] = numberKey;
       }
-   }   
-   // for (const key in oldPointStructure) {
-   //    if (oldPointStructure === newStructure.key) {
-   //       const newValue = oldPointStructure[key];
-   //       for (const letter in newValue) {
-   //          newStructure[letter.toLowerCase()] = (key);
-   //       }
-   //       // newStructure[newValue] === (key);
-   //    }
-   // }
-   // console.log(newStructure);
-   
+   }
+
    return newStructure;
 }
 
@@ -62,13 +52,6 @@ function initialPrompt() {
 
 function simpleScorer(word) {
    return word.length;
-   // let simplePoints = 0;
-   // for (let i = 0; i < word.length; i++) {
-   //    //for(word in initialPrompt){
-   //    simplePoints++
-   //    //}
-   // }
-   // return simplePoints;
 }
 
 function vowelBonusScorer(word) {
@@ -83,33 +66,25 @@ function vowelBonusScorer(word) {
       }
    }
    return vowelPoints;
-
 }
-//console.log(vowelBonusScorer(word));
+
 let newPointStructure = {};
-newPointStructure = transform(oldPointStructure);
-//console.log (newPointStructure);
+   newPointStructure = transform(oldPointStructure);
 
 function scrabbleScorer(word) {
    word = word.toLowerCase();
    let newScore = 0;
- //let example = transform(newStructure);
 
    for (let i = 0; i < word.length; i++) {
-      let newLetter = word[i]; 
-      for(let scoringLetters in newPointStructure){
-      if (scoringLetters === newLetter){;
-      //let letter = word[i]//.toLowerCase();
-      //for (letter in newStructure){
-         let scoringValues = newPointStructure[scoringLetters]
-         newScore += scoringValues;
+      let newLetter = word[i];
+      for (let scoringLetters in newPointStructure) {
+         if (scoringLetters === newLetter) {
+            ;
+            let scoringValues = newPointStructure[scoringLetters]
+            newScore += scoringValues;
+         }
       }
    }
-      // for (const newPointValue in newPointStructure) {
-      //if ((newPointStructure[letter]) === word[i].toLowerCase()) {
-         //if (newPointStructure[letter].includes(word[i].toLowerCase)) {
-        // newScore += newPointStructure[letter];
-      }
    return newScore;
 }
 
@@ -119,39 +94,24 @@ const scoringAlgorithms = [{ name: "Simple: ", description: "One point per chara
 
 function scorerPrompt() {
    const usersScrabbleWord = input.question("Enter a word to score: ");
-   //console.log(oldScrabbleScorer(word));
    const word = String(usersScrabbleWord);
-   //console.log(word);
    
+
    console.log("0 - Simple: Each letter is worth 1 point \n1 - Vowel Bonus: Vowels are worth 3 points \n2 - Scrabble: Uses scrabble point system");
 
    let usersChoice = input.question("Which scoring algorithm would you like to use? ");
    let numberChoice = Number(usersChoice);
 
    if (numberChoice === 0) {
-      //let simpleScore = (simpleScorer());
       console.log(scoringAlgorithms[numberChoice].scorerFunction(word));
    } else if (numberChoice === 1) {
       console.log(scoringAlgorithms[numberChoice].scorerFunction(word));
-      // console.log(vowelScore);
-      //console.log(scoringAlgorithms[1]);
    } else if (numberChoice === 2) {
-      console.log(scoringAlgorithms[numberChoice].scorerFunction(word));// let scrabbleScore = (oldScrabbleScorer());
-      // console.log(scrabbleScore);
-      //console.log(scoringAlgorithms[2]);
+      console.log(scoringAlgorithms[numberChoice].scorerFunction(word));
    }
 
    return numberChoice;
 }
-
-// function transform(oldPointStructure) { };
-//    for (newStructure in oldPointStructure) {
-
-//       if (oldPointStructure[pointValue].includes(word[i])) {
-//          letterPoints += `Points for '${word[i]}': ${pointValue}\n`
-
-//       }
-//    }
 
 function runProgram() {
    initialPrompt();
