@@ -13,18 +13,18 @@ const oldPointStructure = {
 };
 
 function transform(oldPointStructure) {
-   ;
-   //newPoints = 
-
    const newStructure = {};
 
    for (const key in oldPointStructure) {
       if (oldPointStructure === newStructure.key) {
          const newValue = oldPointStructure[key];
-         newStructure[newValue] === (key);
+         for (const letter in newValue) {
+            newStructure[letter.toLowerCase()] = (key);
+         }
+         // newStructure[newValue] === (key);
       }
    }
-   console.log(newStructure);
+   // console.log(newStructure);
    return newStructure;
 }
 
@@ -35,7 +35,6 @@ function oldScrabbleScorer(word) {
    for (let i = 0; i < word.length; i++) {
 
       for (const pointValue in oldPointStructure) {
-
          if (oldPointStructure[pointValue].includes(word[i])) {
             letterPoints += `Points for '${word[i]}': ${pointValue}\n`
 
@@ -50,9 +49,8 @@ function oldScrabbleScorer(word) {
 function initialPrompt() {
    console.log("Lets play some Scrabble!");
    console.log("                        ");
+   
 }
-
-let newPointStructure = transform(oldPointStructure);
 
 function simpleScorer(word) {
    return word.length;
@@ -81,15 +79,19 @@ function vowelBonusScorer(word) {
 
 }
 //console.log(vowelBonusScorer(word));
+let newPointStructure = transform(oldPointStructure);
 
-function scrabbleScorer() {
+function scrabbleScorer(word) {
    let newScore = 0;
 
    for (let i = 0; i < word.length; i++) {
-      for (const newPointValue in newPointStructure) {
-         if (newPointStructure[newpointValue].includes(word[i].toLowerCase)) {
-            newScore += newPointValue;
-         }
+      let letter = word[i].toLowerCase();
+
+      // for (const newPointValue in newPointStructure) {
+      if ((newPointStructure[letter]) === word[i].toLowerCase()) {
+         //if (newPointStructure[letter].includes(word[i].toLowerCase)) {
+         newScore += newPointStructure[letter];
+
       }
    }
    return newScore;
@@ -104,7 +106,7 @@ function scorerPrompt() {
    //console.log(oldScrabbleScorer(word));
    const word = String(usersScrabbleWord);
    //console.log(word);
-
+   
    console.log("0 - Simple: Each letter is worth 1 point \n1 - Vowel Bonus: Vowels are worth 3 points \n2 - Scrabble: Uses scrabble point system");
 
    let usersChoice = input.question("Which scoring algorithm would you like to use? ");
